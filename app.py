@@ -34,7 +34,8 @@ scaler = joblib.load("scaler.pkl")
 st.title("💳 AI Powered Credit Card Fraud Detection System")
 
 # ---------------- SIDEBAR ----------------
-menu = st.sidebar.radio("Navigation", ["Single Prediction", "Bulk Prediction (CSV)", "Model Evaluation"])
+
+menu = st.sidebar.radio("Navigation", ["Single Prediction", "Bulk Prediction (CSV)"])
 
 # ---------------- SINGLE PREDICTION ----------------
 if menu == "Single Prediction":
@@ -93,28 +94,9 @@ elif menu == "Bulk Prediction (CSV)":
         st.download_button("Download Results CSV", csv, "fraud_predictions.csv")
 
 # ---------------- MODEL EVALUATION ----------------
-elif menu == "Model Evaluation":
 
-    st.subheader("Model Performance")
 
-    df = pd.read_csv("creditcard2.csv")
-
-    X = df.drop("Class", axis=1)
-    y = df["Class"]
-
-    scaled_X = scaler.transform(X)
-
-    y_pred = model.predict(scaled_X)
-
-    acc = accuracy_score(y, y_pred)
-    cm = confusion_matrix(y, y_pred)
-
-    st.write(f"### Accuracy: {acc:.4f}")
-
-    fig, ax = plt.subplots()
-    sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", ax=ax)
-    st.pyplot(fig)
-
+   
 
 # streamlit run app.py
 # & "C:\Users\Dinesh Pandey\AppData\Local\Programs\Python\Python313\python.exe" -m streamlit run app.py
